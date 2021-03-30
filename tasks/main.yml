@@ -118,6 +118,22 @@
   when: telegram_listen_port <= 1024
   tags: telegram
 
+- name: install selinux dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  environment: "{{ proxy_env }}"
+  with_items: "{{ telegram_selinux_packages }}"
+  register: _install_packages
+  until: _install_packages is succeeded
+  retries: 5
+  delay: 2
+  when:
+    - ansible_version.full is version_compare('2.4', '>=')
+    - ansible_selinux.status == "enabled"
+  become: true
+  tags: telegram
+
 - name: allow binding to port in selinux
   seport:
     ports: "{{ telegram_listen_port }}"
