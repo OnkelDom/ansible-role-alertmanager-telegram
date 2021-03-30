@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  role_name: alertmanager_telegram
+  author: Dominik Lenhardt
+  description: Installing and configure Prometheus Alertmanager for Telegram
+  license: "MIT"
+  min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Debian
+      versions:
+        - buster
+        - stretch
+    - name: Ubuntu
+      versions:
+        - focal
+        - bionic
+  galaxy_tags:
+  - system
+  - network
+  - linux
+  - monitoring
+  - prometheus
+  - telegram
+dependencies: []

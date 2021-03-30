@@ -1,0 +1,8 @@
+---
+- name: restart telegram
+  systemd:
+    daemon_reload: true
+    name: telegram
+    state: restarted
+  become: true
+  tags: telegram

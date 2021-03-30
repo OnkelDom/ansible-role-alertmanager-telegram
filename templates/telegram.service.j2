@@ -1,0 +1,46 @@
+{{ ansible_managed | comment }}
+[Unit]
+Description=Prometheus Telegram Alerting
+Documentation=https://github.com/metalmatze/alertmanager-bot
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=simple
+User={{ telegram_system_user }}
+Group={{ telegram_system_group }}
+ExecReload=/bin/kill -HUP $MAINPID
+Environment=ALERTMANAGER_URL={{ telegram_alertmanager_url }}
+Environment=LISTEN_ADDR={{ telegram_listen_address }}
+Environment=TELEGRAM_TOKEN={{ telegram_telegram_token }}
+Environment=STORE={{ telegram_store }}
+Environment=TEMPLATE_PATHS={{ telegram_template_dir }}/default.tmpl
+{% if telegram_store == "bolt" %}
+Environment=BOLT_PATH={{ telegram_bolt_path }}
+{% endif %}
+{% if telegram_store == "consul" %}
+Environment=CONSUL_URL={{ telegram_consul_url }}
+{% endif %}
+{% for item in telegram_env_vars %}
+Environment={{ item.split("=")[0] | upper }}={{ item.split("=")[1] }}
+{% endfor %}
+ExecStart={{ telegram_binary_install_dir }}/telegram \
+{% for id in telegram_admins %}
+  --telegram.admin={{ id }} \
+{% endfor %}
+  --log.level={{ telegram_log_level }} \
+  --log.json
+
+KillSignal=SIGINT
+SyslogIdentifier=telegram
+Restart=on-failure
+RestartSec=5
+{% if telegram_http_proxy is defined %}
+Environment="HTTP_PROXY={{ telegram_http_proxy }}"
+{% endif %}
+{% if telegram_https_proxy is defined %}
+Environment="HTTPS_PROXY={{ telegram_https_proxy }}"
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

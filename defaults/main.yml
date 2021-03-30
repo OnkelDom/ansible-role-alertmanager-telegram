@@ -1,0 +1,23 @@
+---
+proxy_env: {}
+telegram_version: 0.4.3
+telegram_binary_install_dir: /usr/local/bin
+telegram_system_user: "{{ telegram_user | default('prometheus') }}"
+telegram_system_group: "{{ telegram_group | default('prometheus') }}"
+telegram_config_dir: /etc/telegram
+telegram_alertmanager_url: "http://127.0.0.1:9093"
+telegram_listen_address: 0.0.0.0
+telegram_listen_port: 2001
+telegram_telegram_token: example
+telegram_admins: []
+telegram_store: bolt
+telegram_bolt_path: "{{ telegram_config_dir }}/bolt.db"
+telegram_consul_url: "http://127.0.0.1:8500"
+telegram_template_dir: "{{ telegram_config_dir }}/templates"
+telegram_log_level: info
+telegram_allow_firewall: false
+telegram_http_proxy: ""
+telegram_https_proxy: ""
+telegram_config_templates:
+  - default
+telegram_env_vars: []
