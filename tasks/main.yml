@@ -59,6 +59,7 @@
   until: _download_binary is succeeded
   retries: 5
   delay: 2
+  delegate_to: localhost
   check_mode: false
   become: true
   tags: telegram
@@ -75,17 +76,6 @@
   become: true
   tags: telegram
   when: (not __telegram_is_installed.stat.exists)
-
-- name: configure telegram
-  template:
-    src: "telegram.config.yml.j2"
-    dest: "{{ telegram_config_dir }}/{{ telegram_config_file }}"
-    owner: "{{ telegram_system_user }}"
-    group: "{{ telegram_system_group }}"
-    mode: 0644
-  notify: restart telegram
-  become: true
-  tags: telegram
 
 - name: create systemd service unit
   template:
