@@ -15,7 +15,7 @@ ExecStart={{ telegram_binary_install_dir }}/telegram \
   --alertmanager.url={{ telegram_alertmanager_url }} \
 {% endif %}
 {% if telegram_listen_address is defined and telegram_listen_address | length > 0 %}
-  --listen.addr={{ telegram_listen_address }} \
+  --listen.addr={{ telegram_listen_address }}:{{ telegram_listen_port }} \
 {% endif %}
 {% if telegram_telegram_token is defined and telegram_telegram_token | length > 0 %}
   --telegram.token={{ telegram_telegram_token }} \
