@@ -10,21 +10,28 @@ Type=simple
 User={{ telegram_system_user }}
 Group={{ telegram_system_group }}
 ExecReload=/bin/kill -HUP $MAINPID
-Environment=ALERTMANAGER_URL={{ telegram_alertmanager_url }}
-Environment=LISTEN_ADDR={{ telegram_listen_address }}
-Environment=TELEGRAM_TOKEN={{ telegram_telegram_token }}
-Environment=STORE={{ telegram_store }}
-Environment=TEMPLATE_PATHS={{ telegram_template_dir }}/default.tmpl
+ExecStart={{ telegram_binary_install_dir }}/telegram \
+{% if telegram_alertmanager_url is defined and telegram_alertmanager_url | length > 0 %}
+  --alertmanager.url={{ telegram_alertmanager_url }} \
+{% endif %}
+{% if telegram_listen_address is defined and telegram_listen_address | length > 0 %}
+  --liste.addr={{ telegram_listen_address }} \
+{% endif %}
+{% if telegram_telegram_token is defined and telegram_telegram_token | length > 0 %}
+  --telegram.token={{ telegram_telegram_token }} \
+{% endif %}
+{% if telegram_store is defined and telegram_store | length > 0 %}
+  --store={{ telegram_store }} \
+{% endif %}
 {% if telegram_store == "bolt" %}
-Environment=BOLT_PATH={{ telegram_bolt_path }}
+  --bolt.path={{ telegram_bolt_path }} \
 {% endif %}
 {% if telegram_store == "consul" %}
-Environment=CONSUL_URL={{ telegram_consul_url }}
+  --consul.url={{ telegram_consul_url }} \
 {% endif %}
-{% for item in telegram_env_vars %}
-Environment={{ item.split("=")[0] | upper }}={{ item.split("=")[1] }}
-{% endfor %}
-ExecStart={{ telegram_binary_install_dir }}/telegram \
+{% if telegram_template_dir is defined and telegram_template_dir | length > 0 %}
+  --template.paths={{ telegram_template_dir }} \
+{% endif %}
 {% for id in telegram_admins %}
   --telegram.admin={{ id }} \
 {% endfor %}
@@ -35,7 +42,10 @@ KillSignal=SIGINT
 SyslogIdentifier=telegram
 Restart=on-failure
 RestartSec=5
-{% if telegram_http_proxy is defined %}
+{% for item in telegram_env_vars %}
+Environment={{ item.split("=")[0] | upper }}={{ item.split("=")[1] }}
+{% endfor %}
+{% if telegram_http_proxy is defined and telegram_http_proxy | length > 0 %}
 Environment="HTTP_PROXY={{ telegram_http_proxy }}"
 {% endif %}
 {% if telegram_https_proxy is defined %}

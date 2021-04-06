@@ -12,7 +12,7 @@
 
 ## Description
 
-Deploy [telegram Alert](https://github.com/prometheus-telegram/prometheus-telegram) using ansible.
+Deploy [telegram Alert](https://github.com/metalmatze/alertmanager-bot) using ansible.
 
 ## Requirements
 
