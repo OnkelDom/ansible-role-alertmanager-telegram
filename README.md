@@ -36,7 +36,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `telegram_system_group` | prometheus | Group for Consul Template |
 | `telegram_listen_port` | 2001 | telegram Alert listen Port |
 | `telegram_listen_address` | 0.0.0.0 | telegram Alert listen Address |
-| `telegram_config_templates` | default | default message template |
+| `telegram_config_template` | default.tmpl | default message template |
 | `telegram_http_proxy` | null | set proxy to use for alert sending |
 | `telegram_https_proxy` | null | set proxy to use for alert sending |
 | `telegram_env_vars` | [] | custom environment vars |
