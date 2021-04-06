@@ -77,6 +77,18 @@
   tags: telegram
   when: (not __telegram_is_installed.stat.exists)
 
+- name: copy message templates
+  copy:
+    src: "{{ item }}"
+    dest: "{{ telegram_config_dir }}/templates/{{ item }}"
+    mode: 0755
+    owner: root
+    group: root
+  notify: restart telegram
+  with_items: "{{ telegram_config_templates }}"
+  become: true
+  tags: telegram
+
 - name: create systemd service unit
   template:
     src: telegram.service.j2
