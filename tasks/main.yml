@@ -79,13 +79,12 @@
 
 - name: copy message templates
   copy:
-    src: "{{ item }}"
-    dest: "{{ telegram_config_dir }}/templates/{{ item }}"
+    src: "{{ telegram_config_template }}"
+    dest: "{{ telegram_config_dir }}/templates/{{ telegram_config_template }}"
     mode: 0755
     owner: root
     group: root
   notify: restart telegram
-  with_items: "{{ telegram_config_templates }}"
   become: true
   tags: telegram
 

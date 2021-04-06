@@ -18,6 +18,5 @@ telegram_log_level: info
 telegram_allow_firewall: false
 telegram_http_proxy: ""
 telegram_https_proxy: ""
-telegram_config_templates:
-  - default
+telegram_config_template: default.tmpl
 telegram_env_vars: []
