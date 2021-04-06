@@ -15,7 +15,7 @@ ExecStart={{ telegram_binary_install_dir }}/telegram \
   --alertmanager.url={{ telegram_alertmanager_url }} \
 {% endif %}
 {% if telegram_listen_address is defined and telegram_listen_address | length > 0 %}
-  --liste.addr={{ telegram_listen_address }} \
+  --listen.addr={{ telegram_listen_address }} \
 {% endif %}
 {% if telegram_telegram_token is defined and telegram_telegram_token | length > 0 %}
   --telegram.token={{ telegram_telegram_token }} \
@@ -30,7 +30,7 @@ ExecStart={{ telegram_binary_install_dir }}/telegram \
   --consul.url={{ telegram_consul_url }} \
 {% endif %}
 {% if telegram_template_dir is defined and telegram_template_dir | length > 0 %}
-  --template.paths={{ telegram_template_dir }} \
+  --template.paths={{ telegram_template_dir }}/default.tmpl \
 {% endif %}
 {% for id in telegram_admins %}
   --telegram.admin={{ id }} \
