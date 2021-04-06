@@ -73,7 +73,7 @@
     group: root
   notify: restart telegram
   become: true
-  tags: prometheus
+  tags: telegram
   when: (not __telegram_is_installed.stat.exists)
 
 - name: configure telegram
@@ -83,18 +83,6 @@
     owner: "{{ telegram_system_user }}"
     group: "{{ telegram_system_group }}"
     mode: 0644
-  notify: restart telegram
-  become: true
-  tags: telegram
-
-- name: configure telegram templates
-  copy:
-    src: "{{ item }}.tmpl"
-    dest: "{{ telegram_template_dir }}/{{ item }}.tmpl"
-    owner: "{{ telegram_system_user }}"
-    group: "{{ telegram_system_group }}"
-    mode: 0644
-  with_items: "{{ telegram_config_templates }}"
   notify: restart telegram
   become: true
   tags: telegram
