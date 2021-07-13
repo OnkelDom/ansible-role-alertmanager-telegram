@@ -30,7 +30,6 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `telegram_binary_install_dir` | /usr/local/bin | default bin dir |
 | `telegram_config_dir` | /etc/telegram | Config Path |
 | `telegram_template_dir` | "{{ telegram_config_dir }}/templates" | Template store path |
-| `telegram_allow_firewall` | false | Allow access on firewalld port |
 | `telegram_binary_install_dir` | /usr/local/bin | Base binary path |
 | `telegram_system_user` | prometheus | User for Consul Template |
 | `telegram_system_group` | prometheus | Group for Consul Template |
@@ -38,7 +37,6 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `telegram_listen_address` | 0.0.0.0 | telegram Alert listen Address |
 | `telegram_config_template` | default.tmpl | default message template |
 | `telegram_http_proxy` | null | set proxy to use for alert sending |
-| `telegram_https_proxy` | null | set proxy to use for alert sending |
 | `telegram_env_vars` | [] | custom environment vars |
 | `telegram_allow_firewall` | false | allow firewall access |
 | `telegram_log_level` | info | app log level |

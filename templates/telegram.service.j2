@@ -49,7 +49,7 @@ Environment={{ item.split("=")[0] | upper }}={{ item.split("=")[1] }}
 Environment="HTTP_PROXY={{ telegram_http_proxy }}"
 {% endif %}
 {% if telegram_https_proxy is defined %}
-Environment="HTTPS_PROXY={{ telegram_https_proxy }}"
+Environment="HTTPS_PROXY={{ telegram_http_proxy }}"
 {% endif %}
 
 [Install]
